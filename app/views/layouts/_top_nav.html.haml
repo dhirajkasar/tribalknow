@@ -35,6 +35,8 @@
                 .small-4.columns
                   %button.submit.btn
                     %i.fi-magnifying-glass
+          %li
+            = link_to "Advanced Search", advanced_searches_path, {:class=>'button'}
       %li.divider.show-for-small
       - if current_tenant
         - unless @static_render

@@ -29,14 +29,14 @@ class User < ActiveRecord::Base
     self.class.where(:tenant_id=>tenant_id).instance_eval &block
   end
 
-  before_create :fake_confirmation_if_necessary
+  #before_create :fake_confirmation_if_necessary
   def fake_confirmation_if_necessary
     if AppConfig['disable_confirmation'].to_i == 1
       self.confirmed_at = Time.now
     end
   end
 
-  after_create :send_admin_email
+  #after_create :send_admin_email
   def send_admin_email
     if requires_admin_approval?
       AdminMailer.new_user_waiting_for_approval(self).deliver
@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  before_save :normalize_hipchat
+  #before_save :normalize_hipchat
 
   def normalize_hipchat
     if hipchat_mention_name.present? && hipchat_mention_name !~ /^@/
@@ -111,6 +111,7 @@ class User < ActiveRecord::Base
             Rails.logger.error("DBG: #{__LINE__} fields => #{fields.inspect}  probably need to add active: true to this hash")
             fields.merge!({skip_confirmation: true, skip_activation: true, active: true})
           end
+          binding.pry
           user = User.create!(fields)
           Rails.logger.error("DBG: user.active => #{user.active}")
           user

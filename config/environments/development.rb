@@ -14,8 +14,8 @@ Tribalknow::Application.configure do
   # config.consider_all_requests_local       = false  # uncomment this to view the rambulance errors in dev mode
   config.action_controller.perform_caching = true
 
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = false
+  config.action_mailer.raise_delivery_errors = false
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -48,9 +48,9 @@ end
 require Rails.root.join("config/local_config.rb") if File.exist?(Rails.root.join("config/local_config.rb"))
 
 SanitizeEmail::Config.configure do |config|
-  config[:sanitized_to] =         ENV['sanitized_to_address']
-  config[:sanitized_cc] =         ENV['sanitized_cc_address']
-  config[:sanitized_bcc] =        ENV['sanitized_bcc_address']
+  config[:sanitized_to] = "dhirajkasar89@gmail.com"
+  config[:sanitized_cc] = "dhirajkasar89@gmail.com"
+  config[:sanitized_bcc] = "dhirajkasar89@gmail.com"
   # run/call whatever logic should turn sanitize_email on and off in this Proc:
   config[:activation_proc] =      Proc.new { %w(development test).include?(Rails.env) }
   config[:use_actual_email_prepended_to_subject] = true         # or false

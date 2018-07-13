@@ -39,6 +39,9 @@ Tribalknow::Application.routes.draw do
   resources :searches do
     get 'autocomplete', on: :collection
   end
+  
+  resources :advanced_searches
+  post 'advanced_searches/search', :to => 'advanced_searches#search'
 
   get "registration/complete"
   post 'registration/complete', :to => 'registration#update', :as=>'update_registration'

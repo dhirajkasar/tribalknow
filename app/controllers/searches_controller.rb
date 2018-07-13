@@ -4,6 +4,7 @@ class SearchesController < ApplicationController
 
   def index
     @results = get_sphinx_search_results params[:q]
+    # binding.pry
     @results.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
 
     Searchjoy::Search.create(
@@ -25,7 +26,7 @@ class SearchesController < ApplicationController
     index
   end
 
-  private
+  protected
 
   def get_sphinx_search_results(term)
     ThinkingSphinx.search Riddle::Query.escape(term),
