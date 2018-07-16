@@ -1,14 +1,39 @@
-
+= stylesheet_link_tag 'advanced_search'
+= render partial: "search_form"
+%h3
+  Searching for:
+  %q #{params[:q]}
 .row
-  .columns.large-7
-    %h3
-      Searching for:
-      %q #{params[:q]}
-    %p (Pro-tip: Use <strong>*</strong> to tell Sphinx to use wildcards so you can search partial strings instead of whole words)
+  .columns.large-12
+    .panel.popular_list
+      %h2.search_result_title Q Results
+      - @q_results.each do |category, search_results|
+        %h2.sub_headers
+          = category.capitalize.pluralize
+        - search_results.each do |result|
+          .row
+            .columns.small-12.search_result_title{style: "font-size: 1em !important"}
+              = link_to result[:label], result[:url], target: :blank
 .row
-  .columns.large-10
-    = render :partial => 'results', :collection => @results
+  .columns.large-12
+    .panel.popular_list
+      %h2.search_result_title Confluence Results
+      - @confluence_results.each do |sub_category, search_results|
+        %h2.sub_headers
+          = sub_category.capitalize.pluralize
+        - search_results.each do |result|
+          .row
+            .columns.small-12.search_result_title{style: "font-size: 1em !important"}
+              = link_to result[:category] + ": " + result[:label], result[:url], target: :blank
+.row
+  .columns.large-12
+    .panel.popular_list
+      %h2.search_result_title JIRA Results
+      - @jira_results.each do |result|
+        .row
+          .columns.small-12.search_result_title{style: "font-size: 1em !important"}
+            = link_to result[:category] + ": " + result[:label], result[:url], target: :blank 
 .row
   .columns.large-8
   .columns.large-4
-    = will_paginate @results
+    / = will_paginate @all_results

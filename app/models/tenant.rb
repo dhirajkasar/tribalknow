@@ -32,7 +32,7 @@ class Tenant < ActiveRecord::Base
   end
 
   def self.default_footer
-    current.try(:footer).presence || "TribalKnowNow Copyright #{Date.today.year}"
+    current.try(:footer).presence || "Coupa Q Copyright #{Date.today.year}"
   end
 
   def email_domain_requires_approval? email

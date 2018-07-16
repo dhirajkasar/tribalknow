@@ -1,0 +1,24 @@
+.row
+  .columns.large-12
+    %h3
+      Search into Q, Confluence, JIRA and Github
+= form_tag advanced_searches_search_path, :method=>:post do
+  .row
+    .large-7.columns
+      = search_field_tag :q
+    .large-5.columns
+      .row
+        .small-4.columns
+          = check_box_tag 'confluence'
+          Confluence
+        .small-4.columns
+          = check_box_tag 'jira'
+          Jira
+        .small-4.columns
+          = check_box_tag 'github'
+          Github
+  .row
+    .large-2.columns
+      %button.submit
+        Search
+
